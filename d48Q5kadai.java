@@ -1,3 +1,5 @@
+//s23014
+//選択ソート
 public class d48Q5kadai {
 	public static void main(String[] args) {
 int[] arr = {11,22,33,44,55};
