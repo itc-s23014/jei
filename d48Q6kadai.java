@@ -1,3 +1,5 @@
+//23014
+//if文とwinpointメソッド使ってteamaとteambを比較した
 // Main class
 public class d48Q6kadai {
     public static void main(String[] args) {
