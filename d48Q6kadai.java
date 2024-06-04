@@ -1,6 +1,5 @@
-//23014
-//if文とwinpointメソッド使ってteamaとteambを比較した
-class d48Q6kadai {
+// Main class
+public class d48Q6kadai {
     public static void main(String[] args) {
         if (args.length != 4) {
             System.out.println("数値を四つ指定してください");
@@ -8,25 +7,36 @@ class d48Q6kadai {
         }
 
         Achievement teamA = new Achievement();
-        teamA.set(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         Achievement teamB = new Achievement();
-        teamB.set(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+        try {
+            teamA.set(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+            teamB.set(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+        } catch (NumberFormatException e) {
+            System.out.println("無効な数値です。整数を入力してください。");
+            return;
+        }
 
         Match match = new Match();
         match.setAchievements(teamA, teamB);
         System.out.println(match.showResult());
 
-        if(match.winPoint(teamA.point, teamB.point, teamA.tryNumber) > match.winPoint(teamB.point, teamA.point, teamB.tryNumber)) {
-            System.out.println("チームAの勝利！");
-        } else
-            System.out.println("チームBの勝利！");
+        int teamAScore = match.winPoint(teamA.getPoint(), teamB.getPoint(), teamA.getTryNumber());
+        int teamBScore = match.winPoint(teamB.getPoint(), teamA.getPoint(), teamB.getTryNumber());
 
+        if (teamAScore > teamBScore) {
+            System.out.println("チームAの勝利！");
+        } else if (teamAScore < teamBScore) {
+            System.out.println("チームBの勝利！");
+        } else {
+            System.out.println("引き分け");
+        }
     }
 }
 
+// Match class
 class Match {
-    Achievement teamA;
-    Achievement teamB;
+    private Achievement teamA;
+    private Achievement teamB;
 
     void setAchievements(Achievement a, Achievement b) {
         teamA = a;
@@ -34,8 +44,8 @@ class Match {
     }
 
     String showResult() {
-        return "Team A:" + winPoint(teamA.point, teamB.point, teamA.tryNumber) +
-                ", Team B:" + winPoint(teamB.point, teamA.point, teamB.tryNumber);
+        return "Team A: " + winPoint(teamA.getPoint(), teamB.getPoint(), teamA.getTryNumber()) +
+               ", Team B: " + winPoint(teamB.getPoint(), teamA.getPoint(), teamB.getTryNumber());
     }
 
     int winPoint(int teamXPoint, int teamYPoint, int teamXTryNumber) {
@@ -58,13 +68,22 @@ class Match {
     }
 }
 
+// Achievement class
 class Achievement {
-    int point;
-    int tryNumber;
+    private int point;
+    private int tryNumber;
 
     void set(int teamPoint, int teamTryNumber) {
-        point = teamPoint;
-        tryNumber = teamTryNumber;
+        this.point = teamPoint;
+        this.tryNumber = teamTryNumber;
+    }
+
+    int getPoint() {
+        return point;
+    }
+
+    int getTryNumber() {
+        return tryNumber;
     }
 }
 
