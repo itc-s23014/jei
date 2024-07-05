@@ -1,5 +1,5 @@
 //s23014
-//
+//標準入力を使って値を入力してもらうようにした
 import java.util.Scanner;
 class d50Q27kadai {
     public static void main(String[] args) {
